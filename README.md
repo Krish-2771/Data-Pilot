@@ -6,7 +6,14 @@
 
 Data-Pilot is a collaborative project focused on analyzing dataset quality, identifying common data-quality issues, and preparing datasets for machine-learning workflows.
 
-The project is being developed as a modular system covering dataset profiling, quality checks, preprocessing, validation, structured reporting, and AI-agent integration.
+The project is developed as a modular system covering:
+
+- Dataset profiling
+- Quality checks
+- Preprocessing
+- Validation
+- Structured reporting
+- AI-agent integration
 
 ## 🎯 Objectives
 
@@ -14,13 +21,14 @@ The project is being developed as a modular system covering dataset profiling, q
 - Detect common data-quality issues
 - Profile columns and datasets automatically
 - Identify potentially problematic values and relationships
-- Provide preprocessing capabilities for machine-learning datasets
-- Generate structured quality information for further processing
+- Provide deterministic preprocessing capabilities
+- Generate structured quality reports
+- Prepare datasets for machine-learning workflows
 - Integrate dataset analysis with an AI-powered workflow
 
 ## 🔍 Dataset Health Analysis
 
-The project currently covers the following dataset analysis areas:
+The project currently includes:
 
 - Dataset statistics
 - Column profiling
@@ -37,85 +45,49 @@ The project currently covers the following dataset analysis areas:
 - ID-column detection
 - Data-leakage detection
 
-## ✅ Development Progress
+## 🧹 Preprocessing
 
-### Completed
+The preprocessing system currently supports:
 
-- [x] Project setup and repository structure
-- [x] Dataset statistics
-- [x] Column profiling
-- [x] Dataset profiling
-- [x] Sample CSV and Excel datasets
-- [x] Missing-value detection
-- [x] Duplicate detection
-- [x] Data-type analysis
-- [x] Outlier detection
-- [x] Categorical-data analysis
-- [x] Invalid-value detection
-- [x] Cardinality analysis
-- [x] Constant-column detection
-- [x] Correlation analysis
-- [x] ID-column detection
+- Mean, median, and mode missing-value handling
+- Missing-row removal
+- Duplicate removal
+- Outlier removal
+- Outlier clipping
+- Categorical-value normalization
+- Label encoding
+- One-hot encoding
+- Standard scaling
+- Min-max scaling
+- Sequential preprocessing pipelines
 
-### Currently Being Tested
+## 📊 Structured Quality Reports
 
-- [ ] Data-leakage detection
+Quality checks generate structured reports containing:
 
-### Upcoming
+- Dataset dimensions
+- Memory usage
+- Column information
+- Detected issues
+- Issue counts
+- Issue percentages
+- Severity
+- Supporting evidence
 
-- [ ] Dataset and quality schemas
-- [ ] Data preprocessing modules
-- [ ] Input and output validators
-- [ ] Shared test suite
-- [ ] Structured report generation
-- [ ] AI-agent integration
-- [ ] End-to-end testing
-- [ ] Final documentation and project release
+Pydantic schemas are used to provide a consistent data structure between the analysis and AI-agent layers.
 
-## 🧩 Planned Components
+## 🛡️ Validation
 
-### Schemas
+The project includes validation utilities for:
 
-Structured schemas for representing dataset information and detected quality issues.
+- DataFrame validation
+- Column validation
+- Numeric-column validation
+- Categorical-column validation
 
-- `dataset_schema.py`
-- `quality_schema.py`
+## 🧪 Testing
 
-### Preprocessing
-
-The project will include preprocessing capabilities for preparing datasets after quality analysis.
-
-- Data cleaning
-- Data transformation
-- Dataset preparation
-- Machine-learning-ready data preparation
-
-### Validators
-
-Validation utilities will be added to ensure consistent inputs and outputs across the project.
-
-- `utils/validators.py`
-
-### Testing
-
-A shared test suite will be developed to validate individual components and their integration.
-
-- `tests/`
-
-### AI-Agent Integration
-
-The structured dataset-quality report will later be connected to the AI agent to support automated interpretation and further dataset-preparation decisions.
-
-## 📂 Project Structure
+The project currently contains **55 automated tests** covering profiling, quality checks, preprocessing, quality-engine integration, schemas, and validation.
 
 ```text
-Data-Pilot/
-│
-├── profiler/
-├── preprocessing/
-├── utils/
-├── tests/
-├── data/
-├── README.md
-├── requirements.txt
-└── .gitignore
+55 passed
