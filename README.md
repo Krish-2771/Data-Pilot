@@ -91,3 +91,117 @@ The project currently contains **55 automated tests** covering profiling, qualit
 
 ```text
 55 passed
+
+## ✅ Development Progress
+
+### Completed
+
+- [x] Project setup and repository structure
+- [x] Dataset statistics
+- [x] Column profiling
+- [x] Dataset profiling
+- [x] CSV and Excel dataset support
+- [x] Missing-value detection
+- [x] Duplicate detection
+- [x] Data-type analysis
+- [x] Outlier detection
+- [x] Categorical-data analysis
+- [x] Invalid-value detection
+- [x] Cardinality analysis
+- [x] Constant-column detection
+- [x] Correlation analysis
+- [x] ID-column detection
+- [x] Data-leakage detection
+- [x] Dataset and quality schemas
+- [x] Data preprocessing modules
+- [x] Input and output validators
+- [x] Structured quality reports
+- [x] Preprocessing pipeline
+- [x] Automated test suite
+- [x] 55 passing tests
+
+### Upcoming
+
+- [ ] AI-agent integration
+- [ ] Recommendation workflow
+- [ ] User approval workflow
+- [ ] Application/UI integration
+- [ ] Visualization layer
+- [ ] End-to-end integration
+- [ ] Final project release
+
+## 🧩 Planned Components
+
+### AI-Agent Integration
+
+The structured dataset-quality report will be connected to the AI agent to support automated interpretation and preprocessing recommendations.
+
+### Application
+
+The application layer will provide:
+
+- Dataset upload
+- AI-assisted recommendations
+- User approval
+- Visualization
+- Final reporting
+
+## 📂 Project Structure
+
+```text
+Data-Pilot/
+│
+├── agent/
+├── config/
+├── profiler/
+├── quality_checks/
+├── preprocessing/
+├── schemas/
+├── utils/
+├── tests/
+├── data/
+│   ├── sample/
+│   ├── uploads/
+│   └── processed/
+│
+├── app.py
+├── README.md
+├── requirements.txt
+└── .gitignore
+
+
+## 🛠️ Technology Stack
+
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- SciPy
+- Pydantic
+- OpenPyXL
+- Pytest
+
+## 👥 Contributors
+
+### Krish Kothari
+
+**Data Analysis & Preprocessing**
+
+- Dataset profiling
+- Statistics
+- Quality checks
+- Structured quality reports
+- Preprocessing
+- Validation
+- Testing
+
+### Dhruv
+
+**AI Agent & Application**
+
+- Application interface
+- AI agent
+- Recommendations
+- User approval workflow
+- Visualizations
+- Final reporting
