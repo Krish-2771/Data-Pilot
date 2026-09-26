@@ -2,49 +2,30 @@ import pandas as pd
 
 
 def calculate_severity(duplicate_percentage: float) -> str:
-    """
-    Determine severity based on the percentage of duplicate rows.
-    """
-
     if duplicate_percentage == 0:
         return "none"
-
-    if duplicate_percentage <= 5:
+    elif duplicate_percentage <= 5:
         return "low"
-
-    if duplicate_percentage <= 20:
+    elif duplicate_percentage <= 20:
         return "medium"
-
-    if duplicate_percentage <= 50:
+    elif duplicate_percentage <= 50:
         return "high"
+    else:
+        return "critical"
 
-    return "critical"
 
-
-def check_duplicates(df: pd.DataFrame) -> dict:
-    """
-    Detect duplicate rows in a DataFrame.
-
-    Returns a structured quality result.
-    """
+def check_duplicates(df: pd.DataFrame) -> list[dict]:
+    if df.empty:
+        return []
 
     total_rows = len(df)
 
-    if total_rows == 0:
-        return {
-            "issue_type": "duplicates",
-            "count": 0,
-            "percentage": 0.0,
-            "severity": "none",
-            "evidence": {
-                "total_rows": 0,
-                "duplicate_rows": 0,
-            }
-        }
+    duplicate_count = int(
+        df.duplicated(keep="first").sum()
+    )
 
-    duplicate_mask = df.duplicated(keep="first")
-
-    duplicate_count = int(duplicate_mask.sum())
+    if duplicate_count == 0:
+        return []
 
     duplicate_percentage = (
         duplicate_count / total_rows
@@ -54,19 +35,23 @@ def check_duplicates(df: pd.DataFrame) -> dict:
         duplicate_percentage
     )
 
-    return {
-        "issue_type": "duplicates",
+    issue = {
+        "issue_type": "duplicate_rows",
+        "column": None,
         "count": duplicate_count,
         "percentage": round(
-            duplicate_percentage,
+            float(duplicate_percentage),
             2
         ),
         "severity": severity,
         "evidence": {
             "total_rows": total_rows,
-            "duplicate_rows": duplicate_count,
-            "unique_rows": int(
-                df.drop_duplicates().shape[0]
+            "duplicate_count": duplicate_count,
+            "duplicate_percentage": round(
+                float(duplicate_percentage),
+                2
             )
         }
     }
+
+    return [issue]

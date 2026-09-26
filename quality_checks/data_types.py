@@ -81,7 +81,8 @@ def check_data_types(df: pd.DataFrame) -> list:
 
         datetime_conversion = pd.to_datetime(
             string_values,
-            errors="coerce"
+            errors="coerce",
+            format="mixed"
         )
 
         datetime_count = int(
