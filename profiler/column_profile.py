@@ -11,6 +11,7 @@ def detect_column_type(series: pd.Series) -> str:
         text
         datetime
         boolean
+        unknown
     """
 
     # Boolean
@@ -34,7 +35,8 @@ def detect_column_type(series: pd.Series) -> str:
     # Try detecting datetime values
     converted_datetime = pd.to_datetime(
         non_null,
-        errors="coerce"
+        errors="coerce",
+        format="mixed"
     )
 
     datetime_ratio = converted_datetime.notna().mean()
@@ -62,18 +64,35 @@ def detect_column_type(series: pd.Series) -> str:
 def profile_column(series: pd.Series) -> dict:
     """
     Generate a structured profile for a single column.
+
+    The returned field names match ColumnSchema in
+    schemas/dataset_schema.py.
     """
 
     column_type = detect_column_type(series)
 
+    total_values = int(len(series))
+    non_null_count = int(series.notna().sum())
+    missing_count = int(series.isna().sum())
+    unique_count = int(series.nunique(dropna=True))
+
+    missing_percentage = (
+        (missing_count / total_values) * 100
+        if total_values > 0
+        else 0.0
+    )
+
     return {
-        "column": series.name,
+        "name": str(series.name),
         "data_type": str(series.dtype),
-        "logical_type": column_type,
-        "total_values": int(len(series)),
-        "non_null_values": int(series.notna().sum()),
-        "missing_values": int(series.isna().sum()),
-        "unique_values": int(series.nunique(dropna=True)),
+        "column_type": column_type,
+        "non_null_count": non_null_count,
+        "missing_count": missing_count,
+        "missing_percentage": round(
+            float(missing_percentage),
+            2
+        ),
+        "unique_count": unique_count,
     }
 
 
