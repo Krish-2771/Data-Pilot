@@ -1,9 +1,13 @@
 # Data-Pilot
-
+### Developed By
+- **Dhruv Pophale** — AI Agent & Application
+- **Krish Kothari** — Data Analysis & Preprocessing
+  
 **AI-powered dataset health analyzer and preprocessing agent for detecting data-quality issues and preparing datasets for machine learning.**
 
 ## 📌 Project Overview
 
+  
 Data-Pilot is a collaborative project focused on analyzing dataset quality, identifying common data-quality issues, and preparing datasets for machine-learning workflows.
 
 The project is developed as a modular system covering:
@@ -274,7 +278,7 @@ Data-Pilot/
 - Validation
 - Testing
 
-### Dhruv
+### Dhruv Pophale
 
 **AI Agent & Application**
 
