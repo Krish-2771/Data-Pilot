@@ -28,7 +28,8 @@ def handle_duplicates(
 
     rows_before = len(processed_df)
 
-    if subset is None:
+    # Handle empty subset same as None (use all columns)
+    if not subset:
         subset = list(processed_df.columns)
 
     invalid_columns = [

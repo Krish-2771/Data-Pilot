@@ -24,6 +24,18 @@ from preprocessing.scaling import (
     scale_numeric_columns
 )
 
+from preprocessing.string_cleaning import (
+    trim_whitespace,
+    empty_strings_to_missing,
+    normalize_categorical_case
+)
+
+from preprocessing.type_conversion import (
+    convert_to_numeric,
+    convert_to_datetime,
+    convert_to_categorical
+)
+
 
 def apply_preprocessing_action(
     df: pd.DataFrame,
@@ -36,11 +48,12 @@ def apply_preprocessing_action(
 
     {
         "action": "fill_mean",
-        "columns": ["Age"]
+        "columns": ["Age"],
+        "parameters": {"multiplier": 1.5, "case": "upper", "errors": "coerce", "format": "%Y-%m-%d"}
     }
 
-    Additional parameters can be provided depending
-    on the preprocessing operation.
+    Parameters are extracted from the nested "parameters" dict for
+    forward compatibility with AI recommendations.
     """
 
     if not isinstance(action, dict):
@@ -56,11 +69,19 @@ def apply_preprocessing_action(
         )
 
     columns = action.get("columns")
+    # Extract parameters from nested "parameters" dict (from AI recommendations)
+    # with fallback to top-level keys for backward compatibility
+    parameters = action.get("parameters", {})
+    # Merge top-level parameters (excluding action/columns) for backward compatibility
+    for key, value in action.items():
+        if key not in ("action", "columns", "parameters") and key not in parameters:
+            parameters[key] = value
 
     if action_name in {
         "fill_mean",
         "fill_median",
         "fill_mode",
+        "fill_unknown",
         "drop_rows"
     }:
         return handle_missing_values(
@@ -90,7 +111,7 @@ def apply_preprocessing_action(
             df,
             action=actual_action,
             columns=columns,
-            multiplier=action.get(
+            multiplier=parameters.get(
                 "multiplier",
                 1.5
             )
@@ -121,6 +142,30 @@ def apply_preprocessing_action(
             action=action_name,
             columns=columns
         )
+
+    # String cleaning actions
+    if action_name == "trim_whitespace":
+        return trim_whitespace(df, columns=columns)
+
+    if action_name == "empty_strings_to_missing":
+        return empty_strings_to_missing(df, columns=columns)
+
+    if action_name == "normalize_categorical_case":
+        case = parameters.get("case", "lower")
+        return normalize_categorical_case(df, columns=columns, case=case)
+
+    # Type conversion actions
+    if action_name == "convert_to_numeric":
+        errors = parameters.get("errors", "raise")
+        return convert_to_numeric(df, columns=columns, errors=errors)
+
+    if action_name == "convert_to_datetime":
+        format = parameters.get("format")
+        errors = parameters.get("errors", "raise")
+        return convert_to_datetime(df, columns=columns, format=format, errors=errors)
+
+    if action_name == "convert_to_categorical":
+        return convert_to_categorical(df, columns=columns)
 
     raise ValueError(
         f"Unsupported preprocessing action: {action_name}"

@@ -4,6 +4,7 @@ venv/
 
 # Environment variables
 .env
+.streamlit/secrets.toml
 
 # Python cache
 __pycache__/
@@ -25,3 +26,15 @@ data/processed/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Development-only test and benchmark utilities (not needed to run the app)
+tests/
+scripts/
+
+# Local planning, audit, and generated project reports
+Issues.md
+TODO.md
+PROJECT_REPORT.md
+PROJECT_REPORT.txt
+STREAMLIT_APP_README.md
+STREAMLIT_APP_SUMMARY.md

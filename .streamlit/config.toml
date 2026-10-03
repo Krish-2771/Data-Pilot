@@ -1,0 +1,47 @@
+# Streamlit configuration for Data-Pilot
+
+[theme]
+# Primary brand color
+primaryColor = "#2563EB"
+# Background color for main content area
+backgroundColor = "#FFFFFF"
+# Background color for sidebar
+secondaryBackgroundColor = "#F8FAFC"
+# Text color
+textColor = "#1E293B"
+# Font family
+font = "sans-serif"
+
+[server]
+# Port to run the server on
+port = 8501
+# Enable CORS
+enableCORS = true
+# Enable XSRF protection
+enableXsrfProtection = true
+# Max upload size in MB
+maxUploadSize = 200
+# Enable static file serving
+enableStaticServing = true
+
+[browser]
+# Gather usage statistics
+gatherUsageStats = false
+
+[runner]
+# Cache background refresh TTL multiplier (4x for longer stale window)
+cacheBackgroundRefreshTTLMultiplier = 4.0
+
+[logger]
+# Log level
+level = "info"
+# Log format
+messageFormat = "%(asctime)s %(levelname)s %(name)s: %(message)s"
+
+[client]
+# Show toolbar in development
+toolbarMode = "viewer"
+
+[global]
+# Disable deprecation warnings for cleaner output
+suppressDeprecationWarnings = true

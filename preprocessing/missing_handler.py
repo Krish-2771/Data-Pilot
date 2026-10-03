@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 def handle_missing_values(
@@ -14,6 +15,7 @@ def handle_missing_values(
     - fill_mean
     - fill_median
     - fill_mode
+    - fill_unknown (categorical - adds "Unknown" category)
 
     Args:
         df: Input DataFrame.
@@ -107,6 +109,14 @@ def handle_missing_values(
 
             fill_value = mode_values.iloc[0]
 
+        elif action == "fill_unknown":
+            # For categorical columns, add "Unknown" as a new category
+            fill_value = "Unknown"
+
+            # If column is Categorical, add "Unknown" to categories first
+            if isinstance(processed_df[column].dtype, pd.CategoricalDtype):
+                processed_df[column] = processed_df[column].cat.add_categories([fill_value])
+
         else:
             raise ValueError(
                 f"Unsupported missing-value action: {action}"
@@ -119,7 +129,8 @@ def handle_missing_values(
     if action not in {
         "fill_mean",
         "fill_median",
-        "fill_mode"
+        "fill_mode",
+        "fill_unknown"
     }:
         raise ValueError(
             f"Unsupported missing-value action: {action}"
