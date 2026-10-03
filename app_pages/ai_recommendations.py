@@ -55,7 +55,7 @@ def ai_recommendations_page():
             st.caption(f"Temperature: {client.temperature} | Max Tokens: {client.max_tokens}")
         except MissingAPIKeyError:
             st.error("❌ NVIDIA_API_KEY not configured")
-            st.info("Set NVIDIA_API_KEY in .env file to enable AI recommendations")
+            st.info("Set NVIDIA_API_KEY in your environment or Streamlit Cloud Secrets to enable AI recommendations")
             return
         except Exception as e:
             st.error(f"❌ NIM client error: {e}")

@@ -20,18 +20,45 @@ TEAM = [
 
 
 def render_footer() -> None:
-    """Render a compact footer at the bottom of every application page."""
+    """Render a compact, visually distinct footer at the bottom of each page."""
     st.divider()
-    brand, link = st.columns([4, 1])
-    with brand:
-        st.markdown("**DATA-PILOT** · AI-powered data quality assistant")
-        st.caption("Analyze · Clean · Validate · Prepare")
-    with link:
-        st.page_link(
-            get_page("Footer"),
-            label="About Data-Pilot & Developers",
-            icon=":material/arrow_forward:",
-        )
+    st.markdown(
+        """
+        <style>
+        .st-key-app-footer {
+            background: linear-gradient(120deg, #172554, #0f766e);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            border-radius: 16px;
+            padding: 0.8rem 1.25rem 0.25rem;
+            margin-bottom: 1rem;
+        }
+        .st-key-app-footer [data-testid="stMarkdownContainer"],
+        .st-key-app-footer [data-testid="stCaptionContainer"] {
+            color: #f8fafc;
+        }
+        .st-key-app-footer .stButton > button {
+            min-height: 3rem;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+    with st.container(key="app-footer"):
+        brand, action = st.columns([3, 1])
+        with brand:
+            st.markdown("### DATA-PILOT")
+            st.caption("AI-powered data quality assistant | Analyze | Clean | Validate | Prepare")
+        with action:
+            if st.button(
+                "Open Footer Page",
+                key="open_footer_page",
+                type="primary",
+                icon=":material/arrow_forward:",
+                use_container_width=True,
+            ):
+                st.switch_page(get_page("Footer"))
 
 
 def footer_page() -> None:
@@ -48,15 +75,15 @@ def footer_page() -> None:
     for column, (icon, title, detail) in zip(
         features,
         [
-            ("🔎", "Analyze", "Profile your dataset and find quality issues."),
-            ("🧹", "Clean", "Apply preprocessing actions to your data."),
-            ("✅", "Validate", "Review checks after processing."),
-            ("📦", "Prepare", "Export the cleaned dataset and report."),
+            ("Search", "Analyze", "Profile your dataset and find quality issues."),
+            ("Cleaning Services", "Clean", "Apply preprocessing actions to your data."),
+            ("Check Circle", "Validate", "Review checks after processing."),
+            ("Inventory 2", "Prepare", "Export the cleaned dataset and report."),
         ],
     ):
         with column:
             with st.container(border=True):
-                st.markdown(f"#### {icon} {title}")
+                st.markdown(f"#### :material/{icon.lower().replace(' ', '_')}: {title}")
                 st.caption(detail)
 
     st.markdown("### Project team")
@@ -72,7 +99,7 @@ def footer_page() -> None:
                     st.link_button("LinkedIn", member["linkedin"], use_container_width=True)
 
     st.divider()
-    st.caption("© 2026 Data-Pilot · Making datasets reliable, consistent, and ML-ready.")
+    st.caption("Copyright 2026 Data-Pilot | Making datasets reliable, consistent, and ML-ready.")
 
     st.markdown("### Your custom content")
     st.info("Add your own sections, links, or other Streamlit elements below.")

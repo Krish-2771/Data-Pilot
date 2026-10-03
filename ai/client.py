@@ -105,8 +105,19 @@ class NIMClient:
 
     @classmethod
     def from_env(cls) -> "NIMClient":
-        """Create client from environment variables only."""
-        return cls()
+        """Create a client from environment variables or Streamlit secrets."""
+        api_key = os.getenv("NVIDIA_API_KEY")
+        if not api_key:
+            try:
+                import streamlit as st
+                from streamlit.errors import StreamlitSecretNotFoundError
+
+                api_key = st.secrets.get("NVIDIA_API_KEY")
+            except StreamlitSecretNotFoundError:
+                # Local runs without a secrets file should still start; AI use
+                # will raise MissingAPIKeyError with a clear configuration message.
+                api_key = None
+        return cls(api_key=api_key)
 
     def get_config(self) -> AISystemPromptConfig:
         """Return current configuration as schema."""

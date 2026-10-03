@@ -4,7 +4,6 @@ Main entry point with multi-page navigation and pre-warming strategy.
 """
 
 import streamlit as st
-from openai import OpenAI
 
 # Page configuration - MUST be the first Streamlit command
 st.set_page_config(
@@ -37,7 +36,7 @@ pages = [
     st.Page(ai_recommendations_page, title="AI Recommendations", icon=":material/psychology:"),
     st.Page(preprocessing_page, title="Preprocessing Pipeline", icon=":material/build:"),
     st.Page(validation_page, title="Validation & Results", icon=":material/check_circle:"),
-    st.Page(footer_page, title="Footer", icon=":material/notes:"),
+    st.Page(footer_page, title="About The Developers", icon=":material/notes:"),
 ]
 
 # Navigation
@@ -46,7 +45,3 @@ pg = st.navigation(pages, position="sidebar")
 pg.run()
 if pg.title != "Footer":
     render_footer()
-
-client = OpenAI(
-    base_url="https://integrate.api.nvidia.com/v1",
-    api_key=st.secrets["NVIDIA_API_KEY"])
